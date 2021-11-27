@@ -17,5 +17,9 @@ public class Main {
     // 2. Create an instance of the view.
     // 3. Create an instance of the controller.
     // 4. Call playGame() on the controller.
+    TicTacToeModel model = new TicTacToeModel();
+    TicTacToeView view = new TicTacToeViewSpring(model);
+    TicTacToeController controller = new TicTacToeControllerGraphical();
+    controller.playGame(model);
   }
 }
