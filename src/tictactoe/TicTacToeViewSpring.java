@@ -1,10 +1,9 @@
 package tictactoe;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * A view class that extends JFrame and implements all operations in TicTacToeView Interface.
@@ -56,13 +55,17 @@ public class TicTacToeViewSpring extends JFrame implements TicTacToeView {
         }
         try {
           listener.handleCellClick(row, col);
+          refresh();
         } catch (IllegalArgumentException | IllegalStateException ex) {
-          // do nothing
+          alert(ex.getMessage());
         }
-        refresh();
       }
     };
     board.addMouseListener(mouseAdapter);
+  }
+
+  private void alert(String message) {
+    JOptionPane.showMessageDialog(this, message, "Oops!", JOptionPane.WARNING_MESSAGE, null);
   }
 
   @Override
