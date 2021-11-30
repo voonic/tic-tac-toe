@@ -1,8 +1,10 @@
 package tictactoe;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
+
+import javax.swing.*;
 
 /**
  * A view class that extends JFrame and implements all operations in TicTacToeView Interface.
@@ -10,19 +12,28 @@ import javax.swing.JFrame;
  */
 public class TicTacToeViewSpring extends JFrame implements TicTacToeView {
 
-  private BoardPanel board;
+  /**
+   * The cell size of the tic-tac-toe game.
+   */
+  public static final int CELL_SIZE = 150;
+  public static final int LABEL_SIZE = 100;
+  private final BoardPanel board;
 
   /**
    * Creates a view based on the read only model for tic-tac-toe.
+   *
    * @param rModel read only model for tic-tac-toe
    */
   public TicTacToeViewSpring(ReadonlyTttModel rModel) {
     super("Tic-Tac-Toe Game");
-    setSize(600, 600);
+    int boardWidth = 3 * CELL_SIZE;
+    int boardHeight = 3 * CELL_SIZE;
+    setSize(boardWidth, boardHeight + LABEL_SIZE);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setResizable(false);
     board = new BoardPanel(rModel);
-    add(board);
+    getContentPane().add(board);
   }
 
   @Override
@@ -31,7 +42,24 @@ public class TicTacToeViewSpring extends JFrame implements TicTacToeView {
       @Override
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
-        System.out.println(e.getX() + ":" + e.getY());
+        int row = 0;
+        if (e.getX() > CELL_SIZE && e.getX() <= (2 * CELL_SIZE)) {
+          row = 1;
+        } else if (e.getX() > (2 * CELL_SIZE) && e.getX() <= (3 * CELL_SIZE)) {
+          row = 2;
+        }
+        int col = 0;
+        if (e.getY() > CELL_SIZE && e.getY() <= (2 * CELL_SIZE)) {
+          col = 1;
+        } else if (e.getY() > (2 * CELL_SIZE) && e.getY() <= (3 * CELL_SIZE)) {
+          col = 2;
+        }
+        try {
+          listener.handleCellClick(row, col);
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+          // do nothing
+        }
+        refresh();
       }
     };
     board.addMouseListener(mouseAdapter);

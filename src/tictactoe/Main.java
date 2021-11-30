@@ -19,7 +19,7 @@ public class Main {
     // 4. Call playGame() on the controller.
     TicTacToeModel model = new TicTacToeModel();
     TicTacToeView view = new TicTacToeViewSpring(model);
-    TicTacToeController controller = new TicTacToeControllerGraphical();
-    controller.playGame(model);
+    TicTacToeController controller = new TicTacToeControllerGraphical(model, view);
+    controller.playGame();
   }
 }
