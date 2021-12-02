@@ -65,7 +65,7 @@ public class TicTacToeViewSpring extends JFrame implements TicTacToeView {
   }
 
   private void alert(String message) {
-    JOptionPane.showMessageDialog(this, message, "Oops!", JOptionPane.WARNING_MESSAGE, null);
+    JOptionPane.showMessageDialog(this, message, "Oops!", JOptionPane.WARNING_MESSAGE);
   }
 
   @Override
