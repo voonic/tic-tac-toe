@@ -1,7 +1,6 @@
 package tictactoe;
 
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -37,34 +36,12 @@ public class TicTacToeViewSpring extends JFrame implements TicTacToeView {
 
   @Override
   public void addClickListener(TicTacToeController listener) {
-    MouseAdapter mouseAdapter = new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        super.mouseClicked(e);
-        int row = 0;
-        if (e.getX() > CELL_SIZE && e.getX() <= (2 * CELL_SIZE)) {
-          row = 1;
-        } else if (e.getX() > (2 * CELL_SIZE) && e.getX() <= (3 * CELL_SIZE)) {
-          row = 2;
-        }
-        int col = 0;
-        if (e.getY() > CELL_SIZE && e.getY() <= (2 * CELL_SIZE)) {
-          col = 1;
-        } else if (e.getY() > (2 * CELL_SIZE) && e.getY() <= (3 * CELL_SIZE)) {
-          col = 2;
-        }
-        try {
-          listener.handleCellClick(row, col);
-          refresh();
-        } catch (IllegalArgumentException | IllegalStateException ex) {
-          alert(ex.getMessage());
-        }
-      }
-    };
+    MouseAdapter mouseAdapter = new BoardMouseAdapter(listener);
     board.addMouseListener(mouseAdapter);
   }
 
-  private void alert(String message) {
+  @Override
+  public void alert(String message) {
     JOptionPane.showMessageDialog(this, message, "Oops!", JOptionPane.WARNING_MESSAGE);
   }
 

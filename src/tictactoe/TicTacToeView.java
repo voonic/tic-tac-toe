@@ -22,4 +22,9 @@ public interface TicTacToeView {
    * Make the view visible to start the game session.
    */
   void makeVisible();
+
+  /**
+   * Used to make a popup alert, when user is trying to do something notorious.
+   */
+  void alert(String message);
 }

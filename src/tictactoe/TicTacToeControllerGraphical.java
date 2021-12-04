@@ -28,6 +28,11 @@ public class TicTacToeControllerGraphical implements TicTacToeController {
 
   @Override
   public void handleCellClick(int row, int col) {
-    m.move(row, col);
+    try {
+      m.move(row, col);
+      view.refresh();
+    } catch (IllegalArgumentException | IllegalStateException e) {
+      view.alert(e.getMessage());
+    }
   }
 }
